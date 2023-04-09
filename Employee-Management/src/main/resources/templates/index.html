@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.com">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Home Page</title>
+  </head>
+  <body>
+    
+    <!-- Navbar -->
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">EMP System</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        
+      </li>
+      <li class="nav-item active">
+       <a th:href = "@{/addemp}" class="btn btn-light btn-md"> Add EMP </a>
+      </li>
+      
+    </ul>
+    </div>
+</nav>
+    
+    
+    <!-- Navbar -->
+    
+    
+   
+   
+    
+    <div class="container p-5">
+    
+    <table class="table table-hover">
+  <thead class="bg-primary text-white">
+    <tr>
+      <th>
+      <a class="text-white" th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
+       Id</a>
+     </th>
+     <th>
+     <a class="text-white" th:href="@{'/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+       Name</a>
+     </th>
+     <th>
+     Address
+     </th>
+     <th>
+     Email
+     </th>
+     <th>
+     <a class="text-white" th:href="@{'/page/' + ${currentPage} + '?sortField=phno&sortDir=' + ${reverseSortDir}}">
+       PhoneNo</a>
+     </th>
+     <th>
+     Salary
+     </th>
+     <th> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="e : ${emp}">
+      <th th:text="${e.id}">1</th>
+      <td th:text="${e.name}"></td>
+      <td th:text="${e.address}"></td>
+      <td th:text="${e.email}"></td>
+      <td th:text="${e.phno}"></td>
+      <td th:text="${e.Salary}"></td>
+      <td>
+      <a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${e.id})}">Edit</a>
+      <a class="btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${e.id})}">Delete</a></td>
+    </tr>
+
+  </tbody>
+</table>
+
+ <div th:if = "${totalPages > 1}">
+   <div class = "row col-sm-10">
+    <div class = "col-sm-2">
+     Total Rows: [[${totalItems}]] 
+    </div>
+    <div class = "col-sm-1">
+     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+     </span>
+    </div>
+    <div class = "col-sm-1">
+     <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+     <span th:unless="${currentPage < totalPages}">Next</span>
+    </div>
+    
+     <div class="col-sm-1">
+        <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+     <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+   </div>
+  </div>
+    
+    
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
